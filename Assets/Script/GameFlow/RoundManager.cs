@@ -44,6 +44,9 @@ public class RoundManager : MonoBehaviour
 
     public event Action StageCompleted;
 
+
+    private int _stageNumber;
+
     private void OnEnable()
     {
         if (_playerGroupController != null)
@@ -62,8 +65,10 @@ public class RoundManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void StartStage(int stageNumber)
     {
+        _stageNumber = stageNumber;
+
         StartCoroutine(StartRound1());
     }
 
@@ -88,7 +93,7 @@ public class RoundManager : MonoBehaviour
         // UIとBoard生成演出を同時開始
         Coroutine uiCoroutine =
             StartCoroutine(
-               _gameUIController.PlayRoundStart(1,1)
+               _gameUIController.PlayRoundStart(_stageNumber, 1)
         );
 
         //カメラ演出
@@ -148,7 +153,7 @@ public class RoundManager : MonoBehaviour
 
         // Round2開始UI
         Coroutine roundUICoroutine =
-            StartCoroutine( _gameUIController.PlayRoundStart( 1, 2 ) );
+            StartCoroutine( _gameUIController.PlayRoundStart(_stageNumber, 2 ) );
 
         Coroutine cameraCoroutine =
             StartCoroutine(_cameraController.FocusBoards(_activeBoards ));

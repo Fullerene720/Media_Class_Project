@@ -141,20 +141,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4173685312762519244, guid: 6d47f41b1099d554c8f5f4e6c43bb4f9, type: 3}
       propertyPath: _stageNumber
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4173685312762519244, guid: 6d47f41b1099d554c8f5f4e6c43bb4f9, type: 3}
       propertyPath: _nextSceneName
-      value: Stage3
+      value: Title
       objectReference: {fileID: 0}
     - target: {fileID: 5210937150015259631, guid: 6d47f41b1099d554c8f5f4e6c43bb4f9, type: 3}
       propertyPath: _round1BoardData
       value: 
-      objectReference: {fileID: 11400000, guid: 65182b9263d3ef44f824147cf1e5fa58, type: 2}
+      objectReference: {fileID: 11400000, guid: d047135779234dc43817471a111746a4, type: 2}
     - target: {fileID: 5210937150015259631, guid: 6d47f41b1099d554c8f5f4e6c43bb4f9, type: 3}
       propertyPath: _round2BoardData
       value: 
-      objectReference: {fileID: 11400000, guid: 432ccabc30e46a741be4ec231cf81f84, type: 2}
+      objectReference: {fileID: 11400000, guid: de67422000d71544f8abd32f87be4312, type: 2}
+    - target: {fileID: 5210937150015259631, guid: 6d47f41b1099d554c8f5f4e6c43bb4f9, type: 3}
+      propertyPath: _rightBoardPosition.x
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 6707641055164512763, guid: 6d47f41b1099d554c8f5f4e6c43bb4f9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 636.3082

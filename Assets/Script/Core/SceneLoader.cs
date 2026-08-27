@@ -1,25 +1,38 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    private bool _isLoading;
+
     public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        if (_isLoading)
+            return;
+
+        if (string.IsNullOrWhiteSpace(sceneName))
+        {
+            Debug.LogWarning("Scene名が設定されていません。");
+            return;
+        }
+
+        StartCoroutine(
+            LoadSceneCoroutine(sceneName)
+        );
     }
 
-    public void LoadTitle()
+    private IEnumerator LoadSceneCoroutine(
+        string sceneName)
     {
-        LoadScene("Title");
-    }
+        _isLoading = true;
 
-    public void LoadStage1()
-    {
-        LoadScene("Stage1");
-    }
+        AsyncOperation operation =
+            SceneManager.LoadSceneAsync(sceneName);
 
-    public void LoadStage2()
-    {
-        LoadScene("Stage2");
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
     }
 }

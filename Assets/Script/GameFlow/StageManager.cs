@@ -14,6 +14,16 @@ public class StageManager : MonoBehaviour
     [SerializeField]
     private int _stageNumber = 1;
 
+
+    [SerializeField]
+    private SceneLoader _sceneLoader;
+
+    [SerializeField]
+    private string _nextSceneName;
+
+    [SerializeField, Min(0f)]
+    private float _stageStartDelay = 0.8f;
+
     private void OnEnable()
     {
         if (_roundManager != null)
@@ -21,6 +31,17 @@ public class StageManager : MonoBehaviour
             _roundManager.StageCompleted +=
                 HandleStageCompleted;
         }
+    }
+
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(
+            _stageStartDelay
+        );
+
+        _roundManager.StartStage(
+            _stageNumber
+        );
     }
 
     private void OnDisable()
@@ -61,5 +82,13 @@ public class StageManager : MonoBehaviour
         Debug.Log(
             $"Stage {_stageNumber} Complete!"
         );
+
+        if (!string.IsNullOrWhiteSpace(
+        _nextSceneName))
+        {
+            _sceneLoader.LoadScene(
+                _nextSceneName
+            );
+        }
     }
 }
