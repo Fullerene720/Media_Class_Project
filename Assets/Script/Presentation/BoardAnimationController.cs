@@ -18,9 +18,7 @@ public class BoardAnimationController : MonoBehaviour
         public Transform Transform;
         public Vector3 OriginalScale;
 
-        public ElementData(
-            Transform transform,
-            Vector3 originalScale)
+        public ElementData(Transform transform,Vector3 originalScale)
         {
             Transform = transform;
             OriginalScale = originalScale;
@@ -33,18 +31,11 @@ public class BoardAnimationController : MonoBehaviour
     /// </summary>
     public void RegisterElement(Transform element)
     {
-        Vector3 originalScale =
-            element.localScale;
+        Vector3 originalScale =element.localScale;
 
-        _elements.Add(
-            new ElementData(
-                element,
-                originalScale
-            )
-        );
+        _elements.Add(new ElementData( element,originalScale));
 
-        element.localScale =
-            Vector3.zero;
+        element.localScale =Vector3.zero;
     }
 
     /// <summary>
@@ -57,23 +48,13 @@ public class BoardAnimationController : MonoBehaviour
             if (element.Transform == null)
                 continue;
 
-            StartCoroutine(
-                ScaleElement(
-                    element.Transform,
-                    Vector3.zero,
-                    element.OriginalScale
-                )
-            );
+            StartCoroutine( ScaleElement(element.Transform,Vector3.zero, element.OriginalScale)  );
 
-            yield return new WaitForSeconds(
-                _spawnInterval
-            );
+            yield return new WaitForSeconds(_spawnInterval);
         }
 
         // 最後のオブジェクトの拡大完了を待つ
-        yield return new WaitForSeconds(
-            _scaleDuration
-        );
+        yield return new WaitForSeconds(_scaleDuration);
     }
 
     /// <summary>
@@ -81,39 +62,21 @@ public class BoardAnimationController : MonoBehaviour
     /// </summary>
     public IEnumerator PlayDisappear()
     {
-        for (
-            int i = _elements.Count - 1;
-            i >= 0;
-            i--)
+        for (int i = _elements.Count - 1;i >= 0;i--)
         {
-            ElementData element =
-                _elements[i];
+            ElementData element = _elements[i];
 
-            if (element.Transform == null)
-                continue;
+            if (element.Transform == null) continue;
 
-            StartCoroutine(
-                ScaleElement(
-                    element.Transform,
-                    element.OriginalScale,
-                    Vector3.zero
-                )
-            );
+            StartCoroutine(ScaleElement(element.Transform,element.OriginalScale,Vector3.zero));
 
-            yield return new WaitForSeconds(
-                _spawnInterval
-            );
+            yield return new WaitForSeconds(_spawnInterval );
         }
 
-        yield return new WaitForSeconds(
-            _scaleDuration
-        );
+        yield return new WaitForSeconds( _scaleDuration );
     }
 
-    private IEnumerator ScaleElement(
-        Transform target,
-        Vector3 startScale,
-        Vector3 endScale)
+    private IEnumerator ScaleElement( Transform target, Vector3 startScale, Vector3 endScale)
     {
         float elapsedTime = 0f;
 
@@ -121,24 +84,11 @@ public class BoardAnimationController : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
 
-            float t =
-                Mathf.Clamp01(
-                    elapsedTime / _scaleDuration
-                );
+            float t = Mathf.Clamp01( elapsedTime / _scaleDuration );
 
-            float smoothT =
-                Mathf.SmoothStep(
-                    0f,
-                    1f,
-                    t
-                );
+            float smoothT = Mathf.SmoothStep( 0f, 1f,t );
 
-            target.localScale =
-                Vector3.Lerp(
-                    startScale,
-                    endScale,
-                    smoothT
-                );
+            target.localScale =Vector3.Lerp(startScale,endScale,smoothT);
 
             yield return null;
         }

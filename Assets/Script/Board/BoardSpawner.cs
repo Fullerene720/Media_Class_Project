@@ -48,22 +48,15 @@ public class BoardSpawner : MonoBehaviour
     {
         if (data == null)
         {
-            Debug.LogError(
-                "BoardDataÇ™ê›íËÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒÅB");
+            Debug.LogError(  "BoardDataÇ™ê›íËÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒÅB");
 
             return null;
         }
 
         // Boardñ{ëÃ
-        BoardController board =
-            Instantiate(
-                _boardPrefab,
-                worldPosition,
-                Quaternion.identity
-            );
+        BoardController board = Instantiate(  _boardPrefab,worldPosition, Quaternion.identity );
 
-        board.name =
-            $"{data.name}_Board";
+        board.name =  $"{data.name}_Board";
 
         board.Initialize(data);
 
@@ -96,20 +89,11 @@ public class BoardSpawner : MonoBehaviour
                 if (gridPosition == data.GoalPosition)
                     continue;
 
-                Vector3 worldPosition =
-                    board.GridToWorld(
-                        gridPosition);
+                Vector3 worldPosition =   board.GridToWorld(  gridPosition);
 
-                GameObject tile =
-                    Instantiate(
-                        _fieldTilePrefab,
-                        worldPosition,
-                        board.transform.rotation,
-                        board.transform
-                    );
+                GameObject tile = Instantiate( _fieldTilePrefab,  worldPosition,   board.transform.rotation,  board.transform );
 
-                tile.name =
-                    $"Tile_{x}_{y}";
+                tile.name =  $"Tile_{x}_{y}";
 
                 board.AnimationController.RegisterElement(tile.transform);
 
@@ -117,13 +101,9 @@ public class BoardSpawner : MonoBehaviour
         }
     }
 
-    private void SpawnObstacles(
-        BoardData data,
-        BoardController board)
+    private void SpawnObstacles( BoardData data,  BoardController board)
     {
-        foreach (
-            Vector2Int gridPosition
-            in data.ObstaclePositions)
+        foreach ( Vector2Int gridPosition in data.ObstaclePositions)
         {
             GameObject obstacle =
                 Instantiate(
@@ -133,16 +113,13 @@ public class BoardSpawner : MonoBehaviour
                     board.transform
                 );
 
-            obstacle.name =
-                $"Obstacle_{gridPosition.x}_{gridPosition.y}";
+            obstacle.name = $"Obstacle_{gridPosition.x}_{gridPosition.y}";
 
             board.AnimationController.RegisterElement(obstacle.transform);
         }
     }
 
-    private void SpawnPlayer(
-        BoardData data,
-        BoardController board)
+    private void SpawnPlayer(  BoardData data,  BoardController board)
     {
         PlayerController player =
             Instantiate(

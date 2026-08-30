@@ -43,115 +43,61 @@ public class GameUIController : MonoBehaviour
     }
 
 
-    public IEnumerator PlayRoundStart(
-        int stageNumber,
-        int roundNumber)
+    public IEnumerator PlayRoundStart(  int stageNumber, int roundNumber)
     {
-        _stageText.text =
-            $"STAGE {stageNumber}";
+        _stageText.text = $"STAGE {stageNumber}";
 
-        _roundText.text =
-            $"ROUND {roundNumber}";
+        _roundText.text = $"ROUND {roundNumber}";
 
-        yield return StartCoroutine(
-            FadeCanvasGroup(
-                _roundTransitionGroup,
-                0f,
-                1f
-            )
-        );
+        yield return StartCoroutine(FadeCanvasGroup( _roundTransitionGroup, 0f, 1f));
 
-        yield return new WaitForSeconds(
-            _displayDuration
-        );
+        yield return new WaitForSeconds(_displayDuration);
 
-        yield return StartCoroutine(
-            FadeCanvasGroup(
-                _roundTransitionGroup,
-                1f,
-                0f
-            )
-        );
+        yield return StartCoroutine( FadeCanvasGroup(_roundTransitionGroup, 1f, 0f ) );
     }
 
 
     public IEnumerator PlayRoundClear(int roundNumber)
     {
-        _roundClearText.text =
-            $"ROUND {roundNumber} CLEAR!";
+        _roundClearText.text =  $"ROUND {roundNumber} CLEAR!";
 
-        yield return StartCoroutine(
-            FadeCanvasGroup(
-                _roundClearGroup,
-                0f,
-                1f
-            )
-        );
+        yield return StartCoroutine( FadeCanvasGroup(_roundClearGroup, 0f,1f) );
 
-        yield return new WaitForSeconds(
-            _displayDuration
-        );
+        yield return new WaitForSeconds(_displayDuration);
 
-        yield return StartCoroutine(
-            FadeCanvasGroup(
-                _roundClearGroup,
-                1f,
-                0f
-            )
-        );
+        yield return StartCoroutine(  FadeCanvasGroup(_roundClearGroup, 1f, 0f ));
     }
 
     public IEnumerator PlayStageClear(int stageNumber)
     {
-        _stageClearText.text =
-            $"STAGE {stageNumber} CLEAR!";
+        _stageClearText.text = $"STAGE {stageNumber} CLEAR!";
 
         yield return StartCoroutine(FadeCanvasGroup(_stageClearGroup,0f,1f));
 
-        yield return new WaitForSeconds(
-            _displayDuration
-        );
+        yield return new WaitForSeconds(_displayDuration);
 
         yield return StartCoroutine( FadeCanvasGroup(_stageClearGroup,1f,0f));
     }
 
-    private IEnumerator FadeCanvasGroup(
-        CanvasGroup canvasGroup,
-        float startAlpha,
-        float endAlpha)
+    private IEnumerator FadeCanvasGroup( CanvasGroup canvasGroup,float startAlpha,float endAlpha)
     {
         float elapsedTime = 0f;
 
-        canvasGroup.alpha =
-            startAlpha;
+        canvasGroup.alpha =startAlpha;
 
         while (elapsedTime < _fadeDuration)
         {
             elapsedTime += Time.deltaTime;
 
-            float t =
-                Mathf.Clamp01(
-                    elapsedTime / _fadeDuration
-                );
+            float t = Mathf.Clamp01( elapsedTime / _fadeDuration );
 
-            float smoothT =
-                Mathf.SmoothStep(
-                    0f,
-                    1f,
-                    t
-                );
+            float smoothT = Mathf.SmoothStep(  0f,  1f,t);
 
-            canvasGroup.alpha =
-                Mathf.Lerp(
-                    startAlpha,
-                    endAlpha,
-                    smoothT
-                );
+            canvasGroup.alpha = Mathf.Lerp( startAlpha, endAlpha, smoothT );
 
             yield return null;
         }
 
-        canvasGroup.alpha =
-            endAlpha;
+        canvasGroup.alpha = endAlpha;
     }
 }

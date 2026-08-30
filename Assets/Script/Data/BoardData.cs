@@ -26,11 +26,9 @@ public class BoardData : ScriptableObject
     public int Width => _width;
     public int Height => _height;
 
-    public Vector2Int PlayerStartPosition =>
-        _playerStartPosition;
+    public Vector2Int PlayerStartPosition => _playerStartPosition;
 
-    public IReadOnlyList<Vector2Int> ObstaclePositions =>
-        _obstaclePositions;
+    public IReadOnlyList<Vector2Int> ObstaclePositions =>  _obstaclePositions;
 
     public Vector2Int GoalPosition => _goalPosition;
 }
